@@ -2,8 +2,8 @@
 #include "HeapMAX.hpp"
 
 int main(){
-    string texto = LeTexto("./dataset/hino.txt");
-    unordered_set stopwords = LeStopwords("./dataset/stopwords.txt");
+    string texto = LeTexto("../dataset/DomCasmurro.txt");
+    unordered_set stopwords = LeStopwords("../dataset/sw.txt");
 
     string texto_tratado = Tratamento(texto);
 
