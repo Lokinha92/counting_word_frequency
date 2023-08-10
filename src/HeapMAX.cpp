@@ -1,9 +1,10 @@
 #include "HeapMAX.hpp"
 
 void HeapMAX::prop(int index){
+
     int maior = index;
-    int esq = 2 * index + 1; // calculando valor do filho da esquerda do indice em questao (index)
-    int dir = 2 * index + 2; // calculando valor do filho da direita
+    long unsigned int esq = 2 * index + 1; // calculando valor do filho da esquerda do indice em questao (index)
+    long unsigned int dir = 2 * index + 2; // calculando valor do filho da direita
 
     if(esq < heap.size() && heap[esq].freq > heap[maior].freq){
         maior = esq;
@@ -21,6 +22,7 @@ void HeapMAX::prop(int index){
 
 
 void HeapMAX::inserir(const DataPair& pair){
+
     heap.push_back(pair);
 
     int index = heap.size() - 1; // posicao do novo elemento
@@ -30,4 +32,18 @@ void HeapMAX::inserir(const DataPair& pair){
         swap(heap[index], heap[(index - 1)/2]); // troca o nó de lugar
         index = (index - 1)/2; // atualiza o indice do atual pro do maior anterior (pai)
     }
+}
+
+DataPair HeapMAX::PesquisaMAX(){
+
+    DataPair Max = heap.front(); // elemento maximo
+    heap[0] = heap.back(); // substitui a raiz pelo ultimo nó da heap
+    heap.pop_back(); // remove o ultimo nó da heap
+    prop(0); // reorganiza
+
+    return Max;
+}
+
+bool HeapMAX::Vazia(){
+    return heap.empty();
 }
