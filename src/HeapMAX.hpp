@@ -5,17 +5,25 @@
 
 using namespace std;
 
-struct Info {
+struct DataPair {
     string palavra;
     int freq;
 
-    Info(const string& p, int f) : palavra(p), freq(f) {}
+    DataPair(const string &p, int f) : palavra(p), freq(f) {}
 };
 
-class HeapMAX
-{
+class HeapMAX {
 private:
-    
+    vector<DataPair> heap;
+
+    void prop(int index); // responsavel por manter a propriedade de Heap maxima após inserção e remoção
 public:
-    
+    HeapMAX(){}
+
+    void inserir(const DataPair& pair);
+
+    DataPair PesquisaMAX();
+
+    bool Vazia();
+
 };
