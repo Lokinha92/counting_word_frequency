@@ -1,8 +1,9 @@
 #include "functions.hpp"
 #include "HeapMAX.hpp"
+#define MAX 3
 
 int main(){
-    string texto = LeTexto("../dataset/DomCasmurro.txt");
+    string texto = LeTexto("../dataset/Semana_Machado_Assis.txt");
     unordered_set stopwords = LeStopwords("../dataset/sw.txt");
 
     string texto_tratado = Tratamento(texto);
@@ -17,8 +18,8 @@ int main(){
         HeapMaxima.inserir(DataPair(item.first, item.second));
     }
 
-    cout << "As 20 palavras mais frequentes: " << endl;
-    for(int i=0; i<20 && !HeapMaxima.Vazia(); ++i){
+    cout << "As " << MAX << " palavras mais frequentes, seguidas de sua frequencia: " << endl;
+    for(int i=0; i<MAX && !HeapMaxima.Vazia(); ++i){
         DataPair pair = HeapMaxima.PesquisaMAX();
         cout << pair.palavra << " : " << pair.freq << endl;
     }
