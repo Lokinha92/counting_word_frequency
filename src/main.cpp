@@ -1,10 +1,10 @@
 #include "functions.hpp"
 #include "HeapMAX.hpp"
-#define MAX 3
+#define MAX 20
 
 int main(){
-    string texto = LeTexto("../dataset/Semana_Machado_Assis.txt");
-    unordered_set stopwords = LeStopwords("../dataset/sw.txt");
+    string texto = LeTexto("../dataset/hino.txt");
+    unordered_set stopwords = LeStopwords("../dataset/stopwords.txt");
 
     string texto_tratado = Tratamento(texto);
 
