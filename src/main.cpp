@@ -1,13 +1,31 @@
 #include "functions.hpp"
 #include "HeapMAX.hpp"
-#define MAX 20
+#define PAL_EXIBIDAS 35
+#define NUM_ENTRADAS 3
 
 int main(){
-    string texto = LeTexto("../dataset/DomCasmurro.txt", "../dataset/Semana_Machado_Assis.txt");
+    vector<string> caminhos;
+    string prefix = "../dataset/";
+    string nome_entrada;
+
+    for(int i=0; i<NUM_ENTRADAS; i++){
+        cout << "Informe o nome da entrada: ";
+        cin >> nome_entrada;
+
+        string caminho_completo = prefix + nome_entrada;
+
+        caminhos.push_back(caminho_completo);
+
+    }
+
+
+    vector<string> textos = LeTexto(caminhos);
+
+    string textos_concatenados = Concatena(textos);
     
     unordered_set stopwords = LeStopwords("../dataset/stopwords.txt");
 
-    string texto_tratado = Tratamento(texto);
+    string texto_tratado = Tratamento(textos_concatenados);
 
     string texto_semSW = RemoveSW(texto_tratado, stopwords);
 
@@ -19,8 +37,8 @@ int main(){
         HeapMaxima.inserir(DataPair(item.first, item.second));
     }
 
-    cout << "As " << MAX << " palavras mais frequentes, seguidas de sua frequencia: " << endl;
-    for(int i=0; i<MAX && !HeapMaxima.Vazia(); ++i){
+    cout << "As " << PAL_EXIBIDAS << " palavras mais frequentes, seguidas de sua frequencia: " << endl;
+    for(int i=0; i<PAL_EXIBIDAS && !HeapMaxima.Vazia(); ++i){
         DataPair pair = HeapMaxima.PesquisaMAX();
         cout << pair.palavra << " : " << pair.freq << endl;
     }

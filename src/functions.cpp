@@ -1,25 +1,42 @@
 #include "functions.hpp"
 
-string LeTexto(const string& caminhoArquivo, const string& caminhoarq2){
-    ifstream arquivo(caminhoArquivo);
-    ifstream arquivo2(caminhoarq2);
-    string conteudo, conteudo2;
 
-    if(arquivo.is_open()){
-        string linha;
-        string linha2;
-        while(getline(arquivo, linha)){
-            conteudo += linha + "\n";
+vector<string> LeTexto(vector<string> entradas){
+    vector<string> textos;
+    string conteudo;
+
+    for(int i=0; i<entradas.size(); i++){
+        fstream arquivo(entradas[i]);
+        
+
+        if(arquivo.is_open()){
+            string linha;
+
+            while(getline(arquivo, linha)){
+                conteudo += linha + "\n";
+            }
+
+            textos.push_back(conteudo);
+
+            conteudo = "";
+
+            arquivo.close();
+        } else {
+            cout << "Erro ao abrir arquivo" << endl;
         }
-        while(getline(arquivo2, linha2)){
-            conteudo2 += linha2 + "\n"; 
-        }
-        arquivo.close();
-    } else{
-        cout << "Erro ao abrir arquivo" << endl;
     }
 
-    return conteudo + "\n" + conteudo2;
+    return textos;
+}
+
+string Concatena(vector<string> textos){
+    string textos_concatenados;
+
+    for(int i=0; i<textos.size(); i++){
+        textos_concatenados += textos[i] + "\n";
+    }
+
+    return textos_concatenados;
 }
 
 string Tratamento(const string& texto){
