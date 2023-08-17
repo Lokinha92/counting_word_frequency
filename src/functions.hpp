@@ -7,7 +7,7 @@
 #include <sstream>
 using namespace std;
 
-string LeTexto(const string& caminhoArquivo);
+string LeTexto(const string& caminhoArquivo, const string& caminhoarq2);
 string Tratamento(const string& texto);
 
 unordered_set<string> LeStopwords(const string& caminhoArquivo);

@@ -1,20 +1,25 @@
 #include "functions.hpp"
 
-string LeTexto(const string& caminhoArquivo){
+string LeTexto(const string& caminhoArquivo, const string& caminhoarq2){
     ifstream arquivo(caminhoArquivo);
-    string conteudo;
+    ifstream arquivo2(caminhoarq2);
+    string conteudo, conteudo2;
 
     if(arquivo.is_open()){
         string linha;
+        string linha2;
         while(getline(arquivo, linha)){
             conteudo += linha + "\n";
+        }
+        while(getline(arquivo2, linha2)){
+            conteudo2 += linha2 + "\n"; 
         }
         arquivo.close();
     } else{
         cout << "Erro ao abrir arquivo" << endl;
     }
 
-    return conteudo;
+    return conteudo + "\n" + conteudo2;
 }
 
 string Tratamento(const string& texto){
