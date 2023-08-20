@@ -82,40 +82,71 @@
 <h3><b>Arquivos de leitura: </b></h3>
 <table>
 <tr>
-        <td> DomCasmurro.txt </td>    
+        <td> input.txt </td>    
     </tr>
     <tr>
-        <td> Semana_Machado_Assis.txt </td>    
+        <td> input2.txt </td>    
     </tr>
     <tr>
+        <td> input3.txt </td>    
+    </tr>
+        <tr>
         <td> stopwords.txt </td>    
     </tr>
 </table>
 
-<b>DomCasmurro.txt, Semana_Machado_Assis.txt: Contém o texto que deve ser lido para extração das K palavras mais frequentes.</b>
+<b>input.txt: Contém o texto que deve ser lido para extração das K palavras mais frequentes. O programa é capaz de ler n arquivos, basta inseri-los na pasta "dataset"</b>
 
 <b>stopwords.txt: Contém as palavras sem relevância semântica que devem ser desconsideradas do texto.</b>
 
 
 <h2 align = center> 💡ALGORITMO </h2>
 
-- Primeiro, a leitura do texto a partir do arquivo .txt referenciado é lido e armazenado em uma string. A seguir, as stopwords também são lidas do seu arquivo referente e armazenadas em um unordered_set.
+- No cabeçalho do arquivo 'main.cpp' é possível definir a quantidade de arquivos que serão lidos, e também a quantidade de palavras serão mostradas na saída. Basta alterar o valor das constantes "PAL_EXIBIDAS" e "NUM_ENTRADAS"
 
 ```c++
-    string texto = LeTexto("../dataset/Semana_Machado_Assis.txt");
-    unordered_set stopwords = LeStopwords("../dataset/stopwords.txt");
+#define PAL_EXIBIDAS 35
+#define NUM_ENTRADAS 3
 ```
 
-- Antes de seguir para a parte de remoção das stopwords, o texto passa por um tratamento, onde todas as palavras são passadas para a forma minúscula e todas as pontuações são retiradas do texo, já que não tem relevância para os fins desejados.
+- De início, é pedido ao usuário que insira o nome dos arquivos que deverão ser lidos, no formato nomearquivo.txt. o nome desses arquivos são concatenados com o resto do endereço para a pasta dataset, os caminhos são armazenados no vector 'caminhos'.
 
 ```c++
-    string texto_tratado = Tratamento(texto);
+    vector<string> caminhos;
+    string prefix = "../dataset/";
+    string nome_entrada;
+
+    for(int i=0; i<NUM_ENTRADAS; i++){
+        cout << "Informe o nome da entrada: ";
+        cin >> nome_entrada;
+
+        string caminho_completo = prefix + nome_entrada;
+
+        caminhos.push_back(caminho_completo);
+
+    }
 ```
 
-- Nesta etapa, já com o texto tratado, as stopwords são retiradas do texto para que apenas as palavras com relevância semântica permaneçam para a contagem.
+- Com todos os caminhos devidamente armazenados, o vector que os contém é passado para a função 'LeTexto', que vai ler o texto contido nos arquivos passados pelo usuário, armazenar cada texto em uma string e armazenar essas strings em um novo vector. Esse vector contendo os textos é passado para a função 'Concatena' que irá concatenar todos os textos em uma única string. 
 
 ```c++
-   string texto_semSW = RemoveSW(texto_tratado, stopwords);
+    vector<string> textos = LeTexto(caminhos);
+
+    string textos_concatenados = Concatena(textos);
+```
+
+- Aqui, as stopwords são lidas do arquivo .txt e passadas para um unordered_set para que sejam acessadas posteriormente na fase de tratamento do texto.
+
+```c++
+   unordered_set stopwords = LeStopwords("../dataset/stopwords.txt");
+```
+
+- Nesta etapa, ocorre o tratamento dos textos lidos. A função 'Tratamento' tem como objetivo retirar a pontuação contida no texto e também converter todo o texto para letras minúsculas. O tratamento retorna uma string com o texto no formato correto, que é passado para a função 'RemoveSW' que, como o nome sugere, acessa o unordered_set contendo as stopwords e retira as palavras sem relevância semântica dos textos lidos.
+
+```c++
+    string texto_tratado = Tratamento(textos_concatenados);
+
+    string texto_semSW = RemoveSW(texto_tratado, stopwords);
 ```
 
 - Agora, já com as palavras relevantes devidamente separadas, a contagem das palavras é feita e armazenada em um unordered_map do tipo <string, int> onde a string representa a palavra, e a variavel inteira representa a frequencia dela no texto.
@@ -127,33 +158,25 @@
 - Por fim, a estrutura de Heap maxima é referenciada, e o par contendo as palavras e sua respectiva frequencia no texto são passados para dentro da estrutura de heap. Após esse processo, as K palavras mais relevantes do texto podem ser extraídas.
 
 ```c++
-        HeapMAX HeapMaxima;
+    HeapMAX HeapMaxima;
 
     for(const auto& item : frequencia){
         HeapMaxima.inserir(DataPair(item.first, item.second));
     }
 
-    cout << "As " << MAX << " palavras mais frequentes, seguidas de sua frequencia: " << endl;
-    for(int i=0; i<MAX && !HeapMaxima.Vazia(); ++i){
+    cout << "As " << PAL_EXIBIDAS << " palavras mais frequentes, seguidas de sua frequencia: " << endl;
+    for(int i=0; i<PAL_EXIBIDAS && !HeapMaxima.Vazia(); ++i){
         DataPair pair = HeapMaxima.PesquisaMAX();
         cout << pair.palavra << " : " << pair.freq << endl;
     }
+
 ```
 
-Para definir quantas palavras mais frequentes vão ser mostradas na tela, basta modificar o valor da constante MAX:
-
-```c++
-#define MAX 20
-```
-
-- Esse algoritmo é uma combinação eficiente do uso de hash para contar a frequência dos
-elementos e heap para manter a lista dos k elementos com maiores valores. Sua complexidade,
-caso implementado adequadamente, é de O(nlogk), onde n é o tamanho da coleção de dados
-e k o número de itens mais relevantes.
+- Esse algoritmo é uma combinação eficiente do uso de hash para contar a frequência dos elementos e heap para manter a lista dos k elementos com maiores valores. Sua complexidade, caso implementado adequadamente, é de O(nlogk), onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
 
 <h2 align = center> 🔍 A ESTRUTURA HEAP </h2>
 
-<p>Heaps são arvores binárias, mas não de pesquisa. As seguintes propriedades podem definir um heap:</p>
+<p>Heaps tem a estrutura de arvore binária, mas não de pesquisa. As seguintes propriedades podem definir um heap:</p>
 
 - O heap é uma árvore binária completa ou quase completa da esquerda para a direita. Isso ajuda para que ela possa ser representada utilizando um vetor, que é o caso deste algorítmo.
 
@@ -237,8 +260,8 @@ Seguindo a ordem das declarações no arquivo HeapMAX.hpp, a implementação do 
 void HeapMAX::prop(int index){
 
     int maior = index;
-    long unsigned int esq = 2 * index + 1; // calculando valor do filho da esquerda do indice em questao (index)
-    long unsigned int dir = 2 * index + 2; // calculando valor do filho da direita
+    long unsigned int esq = 2 * index + 1; 
+    long unsigned int dir = 2 * index + 2;
 
     if(esq < heap.size() && heap[esq].freq > heap[maior].freq){
         maior = esq;
@@ -250,37 +273,49 @@ void HeapMAX::prop(int index){
 
     if(maior != index){
         swap(heap[index], heap[maior]);
-        prop(maior); // recursividade aq, e é repetida até que a propriedade seja mantida para todos os nós
+        prop(maior); 
     }
 }
+```
+A função prop faz o papel do 'Heapfy', e é responsável por manter a estrutura de Heap máxima funcionando corretamente após inserções e remoções. Aqui, um indice da heap é passado como parâmetro e, de principio, o indice do maior valor é atribuido a esse parâmetro. O calculo dos filhos da esquerda e direita desse indice é realizado, dando forma a estrutura de Heap.
 
+Depois é feito a verificação dos filhos da esquerda e da direita em busca de elementos fora da posição, no caso, índices que contém elementos com o atributo 'freq' maior que o do índice considerado o maior. A função é executada de forma recursiva até que todos os elementos estejam na posição adequada 
+
+```c++
 void HeapMAX::inserir(const DataPair& pair){
 
     heap.push_back(pair);
 
-    int index = heap.size() - 1; // posicao do novo elemento
+    int index = heap.size() - 1; 
 
-    while(index > 0 && heap[index].freq > heap[(index - 1)/2].freq){ // executa enquanto o indice não é o nó raiz (0)
-                                                                     // e enquanto a freq do atual é maior que o do pai
-        swap(heap[index], heap[(index - 1)/2]); // troca o nó de lugar
-        index = (index - 1)/2; // atualiza o indice do atual pro do maior anterior (pai)
+    while(index > 0 && heap[index].freq > heap[(index - 1)/2].freq){ 
+        swap(heap[index], heap[(index - 1)/2]); 
+        index = (index - 1)/2; 
     }
 }
+```
+Para a inserção de elementos, obviamnte, um elemento é inserido no vector que representa a heap. Após a inserção, a frequencia do elemento inserido é comparado com a frequencia do seu elemento pai, e caso seja maior, eles são trocados de lugar e o índice do filho é atualizado para o índice do pai. Esse processoé repetido até que o elemento inserido esteja no nó raiz (ou seja, um novo elemento máximo), ou até que a frequencia seja menor que a do elemento pai.
 
+```c++
 DataPair HeapMAX::PesquisaMAX(){
 
-    DataPair Max = heap.front(); // elemento maximo
-    heap[0] = heap.back(); // substitui a raiz pelo ultimo nó da heap
-    heap.pop_back(); // remove o ultimo nó da heap
-    prop(0); // reorganiza
+    DataPair Max = heap.front(); 
+    heap[0] = heap.back(); 
+    heap.pop_back(); 
+    prop(0);
 
     return Max;
 }
+```
+Essa função é responsável por extrair o elemento máximo da heap.
+O elemento máximo é extraído e armazenado no objeto 'Max'. Depois, o ultimo elemento da heap é passado para o nó raiz e a posição onde ele se encontrava é removida, ou seja, o maior elemento anterior saiu da heap. Como a estrutura foi modificada, a função prop (Heapfy) é chamada para que a estrutura seja reorganizada.
 
+```c++
 bool HeapMAX::Vazia(){
     return heap.empty();
 }
 ```
+Aqui, é simplesmente feita uma verificação se há elementos na Heap.
 
 Dessa forma, é esperado que essa estrutura receba um par do tipo <string, int> e seja capaz de manter sempre o elemento com maior valor do tipo inteiro no nó raiz, extraindo assim a palavra com maior frequencia no texto lido como entrada.
 
@@ -306,7 +341,8 @@ using namespace std;
 - A seguir, todas as funções são declaradas:
 
 ```c++
-string LeTexto(const string& caminhoArquivo);
+vector<string> LeTexto(vector<string> entradas);
+string Concatena(vector<string> textos);
 string Tratamento(const string& texto);
 
 unordered_set<string> LeStopwords(const string& caminhoArquivo);
@@ -317,7 +353,9 @@ unordered_map<string, int> ContaFrequencia(const string& texto);
 ```
 
 ```c++
-string LeTexto(const string& caminhoArquivo): É responsável por ler o texto do arquivo .txt através do caminho referenciado e armazenar em uma string.
+vector<string> LeTexto(vector<string> entradas): É responsável por percorrer o vector contendo os caminhos para os arquivos de texto, ler e armazenar em uma string e armazenar essas strings em um novo vector.
+
+string Concatena(vector<string> textos): É responsável por percorrer o vector contendo as strings com os textos armazenados e concatená-los em uma única string.
 
 string Tratamento(const string& texto): É responsável por retirar a pontuação e passar o texto lido para o formato minúsculo em sua totalidade.
 
@@ -336,22 +374,52 @@ Seguindo a ordem das declarações no arquivo functions.hpp, a implementação d
 ```c++
 #include "functions.hpp"
 
-string LeTexto(const string& caminhoArquivo){
-    ifstream arquivo(caminhoArquivo);
+vector<string> LeTexto(vector<string> entradas){
+    vector<string> textos;
     string conteudo;
 
-    if(arquivo.is_open()){
-        string linha;
-        while(getline(arquivo, linha)){
-            conteudo += linha + "\n";
+    for(int i=0; i<entradas.size(); i++){
+        fstream arquivo(entradas[i]);
+        
+
+        if(arquivo.is_open()){
+            string linha;
+
+            while(getline(arquivo, linha)){
+                conteudo += linha + "\n";
+            }
+
+            textos.push_back(conteudo);
+
+            conteudo = "";
+
+            arquivo.close();
+        } else {
+            cout << "Erro ao abrir arquivo" << endl;
         }
-        arquivo.close();
-    } else{
-        cout << "Erro ao abrir arquivo" << endl;
     }
 
-    return conteudo;
+    return textos;
 }
+
+```
+Aqui, o vector contendo o caminho das entradas é percorrido, o arquivo referente a cada caminho é lido, armazenado em uma string e armazenado em um novo vector chamado 'textos'.
+
+```c++
+
+string Concatena(vector<string> textos){
+    string textos_concatenados;
+
+    for(int i=0; i<textos.size(); i++){
+        textos_concatenados += textos[i] + "\n";
+    }
+
+    return textos_concatenados;
+}
+```
+Nessa função o vector 'textos' contendo as strings com os dados de entrada é percorrido e todos os textos são concatenados em uma unica string.
+
+```c++
 
 string Tratamento(const string& texto){
     string Texto_tratado = texto;
@@ -362,6 +430,11 @@ string Tratamento(const string& texto){
 
     return Texto_tratado;
 }
+
+```
+O tratamento é realizado nessa função, a string contendo os textos concatenados é tratada passando todo o conteúdo para o formato minúsculo e também retirando toda a pontuação contida.
+
+```c++
 
 unordered_set<string> LeStopwords(const string& caminhoArquivo){
     unordered_set<string> stopwords;
@@ -381,6 +454,15 @@ unordered_set<string> LeStopwords(const string& caminhoArquivo){
     return stopwords;
 }
 
+```
+Nessa função, as stopwords são lidas e armazenadas em um unordered_set.
+
+O unordered_set é um contêiner que armazena elementos únicos sem chaves associadas. Cada elemento é seu próprio valor distinto, e não há associação explícita entre chaves e elementos. Ele é projetado para armazenar e recuperar elementos de maneira eficiente. Dessa forma, se torna uma boa opção para armazenar as stopwords com fins de acessá-las posteriormente para a remoção das stopwords do texto.
+
+O unordered_set trata colisões com a estratégia de endereçamento fechado, ou seja, cada posição da tabela hash contém uma lista simplesmente encadeada, e registros iguais são adicionados a sua respectiva lista.
+
+```c++
+
 string RemoveSW(const string& textoTratado, unordered_set<string>& stopwords){
     stringstream separador(textoTratado);
     string palavra;
@@ -394,6 +476,10 @@ string RemoveSW(const string& textoTratado, unordered_set<string>& stopwords){
 
     return texto_semSW;
 }
+```
+Essa função faz o tratamento final das entradas, retirando as palavras sem relevância semântica (stopwords) dos arquivos de entrada. O texto retornado deve estar devidamente tratado para que a contagem de palavras seja feita.
+
+```c++
 
 unordered_map<string, int> ContaFrequencia(const string& texto){
     unordered_map<string, int> palavras;
@@ -409,11 +495,17 @@ unordered_map<string, int> ContaFrequencia(const string& texto){
 }
 ```
 
+Finalmente, a contagem das palavras é feita dentro da estrutura unordered_map, armazenando um par do tipo <string, int>, onde a string representa a palavra e o inteiro representa a frequencia da palavra nos arquivos de entrada.
+
+A escolha dessa estrutura se deu justamente pelo fato da fácil associação de chave-valor, no caso, palavra-frequencia. Assim como o unordered_set, o unordered_map trata colisões com a estratégia de endereçamento fechado.
+
+Dessa forma, ao mesmo tempo que as palavras são inseridas no unordered_set, é verificado se ela já está presente. Caso esteja, o contador de frequencia é incrementado em 1, se não, a chave (palavra) é inserida e o contador de frequencia é inicializado em 1.
+
 Dessa forma, é esperado que a leitura, o tratamento e a contagem das palavras seja realizada de forma correta ao fim da utilização de todas as função descritas.
 
 <h2 align = center>📈 Resultados esperados</h2>
 
-É esperado que, a partir de um dado texto como entrada, o programa seja capaz de elencar as K palavras mais relevantes do texto, mostrando na tela a palavra e sua frequência.
+É esperado que, a partir de n textos passados como entrada, o programa seja capaz de elencar as K palavras mais relevantes, mostrando na tela a palavra e sua frequência.
 
 Como exemplo, utilizemos o hino nacional brasileiro:
 
@@ -428,15 +520,9 @@ No contexto deste exemplo, as 20 palavras mais frequentes do hino nacional brasi
 
 <h2 align = center>🔧 Compilação e execução </h2>
 </h2>
+      
 
-<b>Utilizando Makefile/Make:</b>
-
-| Comando                |  Função                                                                                           |                     
-| -----------------------| ------------------------------------------------------------------------------------------------- |                                     
-|  `make`                | Executa a compilação do programa utilizando o g++, e o resultado vai para a pasta build           |
-|  `make run`            | Executa o programa da pasta build após a realização da compilação             
-
-<b>Usando g++: no terminal, navegue até a pasta src:</b>
+<b>No terminal, navegue até a pasta src:</b>
 
 | Comando                |  Função                                                                                           |                     
 | -----------------------| ------------------------------------------------------------------------------------------------- |                                     
