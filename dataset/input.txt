@@ -1393,7 +1393,7 @@ Pádua ficou pálido, como as tochas. Era pôr à prova o coração de um pai. O
 conhecia de me ver ali com minha mãe, aos domingos, perguntou de curioso se eu era deveras
 seminarista.
 
---Ainda não, mais vai sê-lo, respondeu José Dias piscando o olho esquerdo para mim, que, apesar
+-- Ainda não, mais vai sê-lo, respondeu José Dias piscando o olho esquerdo para mim, que, apesar
 do aviso, fiquei zangado.
 
 --Bem, cedo ao nosso Bentinho, suspirou o pai de Capitu.
@@ -2396,11 +2396,11 @@ cousa? lura que só há de casar comigo?
 Capitu não hesitou em jurar, e até lhe vi as faces vermelhas de prazer. Jurou duas vezes e uma
 terceira:
 
---Ainda que você case com outra, cumprirei o meu juramento, não casando nunca.
+-- Ainda que você case com outra, cumprirei o meu juramento, não casando nunca.
 
 --Que eu case com outra?
 
---Tudo pode ser. Bentinho. Você pode achar outra moça que lhe queira, apaixonar-se por ela e
+-- Tudo pode ser. Bentinho. Você pode achar outra moça que lhe queira, apaixonar-se por ela e
 casar. Quem sou eu para você lembrar-se de mim nessa ocasião?
 
 --Mas eu também juro! Juro, Capitu, juro por Deus Nosso Senhor que só me casarei com você.
@@ -3330,7 +3330,7 @@ espirituais, e pedi a Deus que me perdoasse e salvasse a vida de minha mãe, e e
 mil padre-nossos. Padre que me lês, perdoa este recurso; foi a última vez que o empreguei A crise
 em que me achava, não menos que o costume e a fé, explica tudo. Eram mais dous mil; onde iam os
 antigos? Não paguei uns nem outros, mas saindo de almas cândidas e verdadeiras tais promessas
-são como a moeda fiduciária,--ainda que o devedor as não pague, valem a soma que dizem.
+são como a moeda fiduciária,-- ainda que o devedor as não pague, valem a soma que dizem.
 
 CAPÍTULO LXVIII / ADIEMOS A VIRTUDE
 
@@ -3349,7 +3349,7 @@ certo número deles e delas, aliados por matrimônio para se compensarem na vida
 tais cônjuges é mais forte que o outro, ele só guia o indivíduo, sem que este, por não haver praticado
 tal virtude ou cometido tal pecado se possa dizer isento de um ou de outro; mas a regra é dar-se a
 prática simultânea dos dous, com vantagem do portador de ambos, e alguma vez com resplendor
-maior da terra e do céu. ç pena que eu não possa fundamentar isto com um ou mais casos estranhos;
+maior da terra e do céu. Pena que eu não possa fundamentar isto com um ou mais casos estranhos;
 falta-me tempo.
 
 Pelo que me toca, é certo que nasci com alguns daqueles casais, e naturalmente ainda os possuo. Já
@@ -4448,7 +4448,7 @@ contemplação. De repente, vi-lhe no rosto um clarão, um reflexo de idéia e o
 volubilidade:
 
 --Não, Bentinho, não é preciso isso. Há melhor, --não dizia melhor, porque o Santo Padre vale
-sempre mais que tudo,--mas ha cousa que produz o mesmo efeito.
+sempre mais que tudo, -- mas ha cousa que produz o mesmo efeito.
 
 -- Que é?
 
@@ -4602,7 +4602,7 @@ distinto, e trabalhador, e marido de truz; mas, enfim, velho também sabe amar..
 
 --Mas que é?
 
---Que há de ser? Quem é que não sabe tudo?... Aquela intimidade de vizinhos tinha de acabar nisto,
+-- Que há de ser? Quem é que não sabe tudo? ... Aquela intimidade de vizinhos tinha de acabar nisto,
 que é verdadeiramente uma bênção do céu, porque ela é um anjo, é um anjíssimo... Perdoe a
 cincada, Bentinho, foi um modo de acentuar a perfeição daquela moça. Cuidei o contrário, outrora;
 confundi os modos de criança com expressões de caráter, e não vi que essa menina travessa e já de
@@ -5666,7 +5666,7 @@ CAPÍTULO CXXVII / O BARBEIRO
 
 Perto de casa, havia um barbeiro, que me conhecia de vista, amava a rebeca e não tocava
 inteiramente mal. Na ocasião em que ia passando, executava não sei que peça. Parei na calçada a
-ouvi-lo (tudo são pretextos a um coração agoniado), ele viu-me, e continuou a tocar. Não atendeu a
+ouvi-lo ( tudo são pretextos a um coração agoniado), ele viu-me, e continuou a tocar. Não atendeu a
 um freguês, e logo a outro, que ali foram, a despeito da hora e de ser domingo, confiar-lhe as caras à
 navalha. Perdeu-os sem perder uma nota- ia tocando para mim. Esta consideração fez-me chegar
 francamente à porta da loja, voltado para ele. Ao fundo, levantando a cortina de chita que fechava o
@@ -6015,7 +6015,7 @@ explicasse...
 
 --Não há que explicar, disse eu.
 
---Há tudo, não entendo as tuas lágrimas nem as de Ezequiel. Que houve entre vocês?
+-- Há tudo, não entendo as tuas lágrimas nem as de Ezequiel. Que houve entre vocês?
 
 --Não ouviu o que lhe disse?
 

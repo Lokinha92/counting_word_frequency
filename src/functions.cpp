@@ -44,6 +44,8 @@ string Tratamento(const string& texto){
 
     transform(Texto_tratado.begin(), Texto_tratado.end(), Texto_tratado.begin(), ::tolower); // minusculas
 
+    replace(Texto_tratado.begin(), Texto_tratado.end(), '-', ' '); // substituindo hifen por espaço
+
     Texto_tratado.erase(remove_if(Texto_tratado.begin(), Texto_tratado.end(), ::ispunct), Texto_tratado.end()); // tirando pontos
 
     return Texto_tratado;

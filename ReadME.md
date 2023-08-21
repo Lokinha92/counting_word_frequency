@@ -426,13 +426,15 @@ string Tratamento(const string& texto){
 
     transform(Texto_tratado.begin(), Texto_tratado.end(), Texto_tratado.begin(), ::tolower); // minusculas
 
+    replace(Texto_tratado.begin(), Texto_tratado.end(), '-', ' ');
+
     Texto_tratado.erase(remove_if(Texto_tratado.begin(), Texto_tratado.end(), ::ispunct), Texto_tratado.end()); // tirando pontos
 
     return Texto_tratado;
 }
 
 ```
-O tratamento é realizado nessa função, a string contendo os textos concatenados é tratada passando todo o conteúdo para o formato minúsculo e também retirando toda a pontuação contida.
+O tratamento é realizado nessa função, a string contendo os textos concatenados é tratada passando todo o conteúdo para o formato minúsculo, os hífens são substituídos por espaços e também é retiranda toda a pontuação contida.
 
 ```c++
 
