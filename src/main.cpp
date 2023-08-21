@@ -1,7 +1,7 @@
 #include "functions.hpp"
 #include "HeapMAX.hpp"
 #define PAL_EXIBIDAS 20
-#define NUM_ENTRADAS 1
+#define NUM_ENTRADAS 2
 
 int main(){
     vector<string> caminhos;
