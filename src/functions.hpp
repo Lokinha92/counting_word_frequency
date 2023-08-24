@@ -5,6 +5,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <sstream>
+#include <vector>
 using namespace std;
 
 vector<string> LeTexto(vector<string> entradas);
