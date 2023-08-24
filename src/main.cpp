@@ -23,7 +23,7 @@ int main(){
 
     string textos_concatenados = Concatena(textos);
     
-    unordered_set stopwords = LeStopwords("../dataset/stopwords.txt");
+    unordered_set<string> stopwords = LeStopwords("../dataset/stopwords.txt");
 
     string texto_tratado = Tratamento(textos_concatenados);
 
